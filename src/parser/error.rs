@@ -9,4 +9,5 @@ pub struct Error {
 #[derive(Debug, PartialEq, Clone)]
 pub enum ErrorKind {
     UnexpectedTerminals, 
+    UnexpectedEof, 
 }
