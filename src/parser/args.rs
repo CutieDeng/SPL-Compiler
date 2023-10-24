@@ -1,4 +1,4 @@
-use crate::{token::Token, yield_now};
+use crate::{token::Token}; 
 
 use super::{exp::Exp, error::Error};
 
@@ -6,10 +6,10 @@ use super::{exp::Exp, error::Error};
 pub struct Args <'a> (pub Vec<Exp<'a>>, pub &'a [Token<'a, 'a>]);
 
 impl <'a> Args <'a> {
-    pub async fn parse(input: &'a [Token<'a, 'a>]) -> Result<(Args<'a>, &'a [Token<'a, 'a>]), Error> {
+    pub fn parse(input: &'a [Token<'a, 'a>]) -> Result<(Args<'a>, &'a [Token<'a, 'a>]), Error> {
         // let mut args_v = Vec::new(); 
         loop {
-            let r = Exp::parse(input).await; 
+            let r = Exp::parse(input); 
             
 
         }

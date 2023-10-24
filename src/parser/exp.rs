@@ -22,7 +22,7 @@ pub struct Exp <'a> {
 }
 
 impl <'a> Exp <'a> {
-    pub async fn parse(input: &'a [Token<'a, 'a>]) -> Result<(Exp<'a>, &'a [Token<'a, 'a>]), Error> {
+    pub fn parse(input: &'a [Token<'a, 'a>]) -> Result<(Exp<'a>, &'a [Token<'a, 'a>]), Error> {
         todo!()
         // return Err(Error {} ); 
     } 

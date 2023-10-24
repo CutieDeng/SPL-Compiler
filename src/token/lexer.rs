@@ -1,11 +1,11 @@
-use crate::{yield_now, token::TokenType};
+use crate::{token::TokenType};
 
 use super::{Token, Location};
 
 pub struct Lexer; 
 
 impl Lexer {
-    pub async fn lexer<'a, 'l> (&self, content: &'a str, start_location: Location<'l>) -> (Vec<Token<'l, 'a>>, bool) where 'a : 'l { 
+    pub fn lexer<'a, 'l> (&self, content: &'a str, start_location: Location<'l>) -> (Vec<Token<'l, 'a>>, bool) where 'a : 'l { 
         let origin_content = content; 
         let mut count = 0; 
         let mut tokens = Vec::new(); 
@@ -29,7 +29,6 @@ impl Lexer {
             count += 1; 
             if count == 1000 {
                 count = 0; 
-                yield_now().await; 
             }
             // Get the current character 
             let (i, c) = content[idx]; 

@@ -1,12 +1,8 @@
 use std::sync::Arc;
 
-use futures::{select, FutureExt};
-use futures::executor::block_on;
-
 use spl::token::error::lex_error_detected;
 use spl::token::{Location, VirtualFile, InnerLocation};
 use spl::token::lexer::Lexer;
-use spl::yield_now;
 
 pub fn main() {
     // let a = async {
@@ -33,7 +29,7 @@ pub fn main() {
     //         }
     //     }
     // }); 
-    let p = block_on(Lexer.lexer("int struct take_2 many 123b k90 r   ft a1,2 never! handle problem-cast float", Location { file: Arc::new(VirtualFile::Stdin), location: InnerLocation::new() })); 
+    let p = Lexer.lexer("int struct take_2 many 123b k90 r   ft a1,2 never! handle problem-cast float", Location { file: Arc::new(VirtualFile::Stdin), location: InnerLocation::new() }) ;
     let p2 = lex_error_detected(&p.0); 
     dbg!(p);
     dbg!(p2); 
