@@ -14,6 +14,6 @@ pub enum StmtImpl <'a> {
 #[derive(Debug, PartialEq, Clone)] 
 pub struct Stmt <'a> {
     pub inner: StmtImpl<'a>,
-    pub span: &'a [Token<'a, 'a>], 
+    pub span: &'a [Token<'a>], 
 }
 

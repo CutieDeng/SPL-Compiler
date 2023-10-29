@@ -13,8 +13,8 @@ pub use location::Location;
 pub mod lexer;
 
 #[derive(Debug, Clone, PartialEq)]
-pub struct Token <'l, 'a> where 'a : 'l {
-    pub location: Location<'l>, 
+pub struct Token <'a> { 
+    pub location: Location<'a>, 
     pub token_type: Option<TokenType>, 
     pub content: &'a str, 
 }

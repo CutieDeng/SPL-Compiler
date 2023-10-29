@@ -1,11 +1,11 @@
-use crate::{token::TokenType};
+use crate::token::TokenType; 
 
 use super::{Token, Location};
 
 pub struct Lexer; 
 
 impl Lexer {
-    pub fn lexer<'a, 'l> (&self, content: &'a str, start_location: Location<'l>) -> (Vec<Token<'l, 'a>>, bool) where 'a : 'l { 
+    pub fn lexer<'a, 'l> (&self, content: &'a str, start_location: Location<'l>) -> (Vec<Token<'a>>, bool) where 'l : 'a { 
         let origin_content = content; 
         let mut count = 0; 
         let mut tokens = Vec::new(); 

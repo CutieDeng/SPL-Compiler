@@ -1,13 +1,15 @@
-use std::{fmt::Display, num::{IntErrorKind, ParseFloatError}, ops::Not};
+use std::ops::Not;
+use std::num::IntErrorKind;
+use std::fmt::Display;
 
 use crate::token::TokenType;
 
 use super::Token;
 
 #[derive(Debug, Clone, PartialEq)]
-pub struct Error <'l, 'a> {
+pub struct Error <'a> {
     pub error_type: ErrorType, 
-    pub token: Token<'l, 'a>, 
+    pub token: Token<'a>, 
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -21,16 +23,16 @@ pub enum ErrorType {
     InvalidType, 
 }
 
-impl <'l, 'a> Display for Error<'l, 'a> {
+impl <'l, 'a> Display for Error<'a> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?} at {:?}", self.error_type, self.token)
     }
 }
 
-impl <'l, 'a> std::error::Error for Error <'l, 'a> {
+impl <'l, 'a> std::error::Error for Error<'a> {
 }
 
-pub fn lex_error_detected<'l, 'a> (tokens: &[Token<'l, 'a>]) -> Box<[Option<Error<'l, 'a>>]> {
+pub fn lex_error_detected<'l, 'a> (tokens: &[Token<'a>]) -> Box<[Option<Error<'a>>]> {
     let rst : Vec<_> = tokens.iter().map(|token| {
         match token.token_type {
             None => Some(Error { error_type: ErrorType::InvalidType, token: token.clone() }),
@@ -70,7 +72,10 @@ pub fn lex_error_detected<'l, 'a> (tokens: &[Token<'l, 'a>]) -> Box<[Option<Erro
                         } 
                     }
                     TokenType::Id => {
-                        token.content.chars().all(|c| c.is_alphanumeric() || c == '_').not().then(|| Error { error_type: ErrorType::InvalidId, token: token.clone() }) 
+                        let t = token.content.chars().all(|c| c.is_alphanumeric() || c == '_').not().then(|| Error { error_type: ErrorType::InvalidId, token: token.clone() }) ;
+                        dbg!(&t); 
+                        dbg!(&token); 
+                        t 
                     }
                     _ => None, 
                 }
